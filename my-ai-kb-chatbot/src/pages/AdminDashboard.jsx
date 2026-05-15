@@ -1,13 +1,15 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import {
   FaBook,
   FaPlus,
   FaTrash,
   FaEdit,
-  FaSave,FaHistory,
+  FaSave,FaHistory,FaUserCircle,
+FaSignOutAlt,
 FaBan,
 } from "react-icons/fa";
 import socket from "../socket";
@@ -27,6 +29,22 @@ function AdminDashboard() {
   useState([]);
 const [selectedEmployee, setSelectedEmployee] =
   useState(null);
+
+  const navigate = useNavigate();
+
+const user = JSON.parse(
+  localStorage.getItem("user")
+);
+
+const logout = () => {
+
+  localStorage.removeItem(
+    "user"
+  );
+
+  navigate("/");
+
+};
 
   useEffect(() => {
 
@@ -317,25 +335,98 @@ setChats(latestChats);
 
         <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
 
-          <div className="bg-purple-600 p-8 text-white">
-            <div className="flex flex-col md:flex-row md:items-center gap-4">
+          <div className="bg-purple-600 p-4 md:p-8 text-white">
 
-              <div className="bg-white/20 p-4 rounded-2xl text-3xl">
-                <FaBook />
-              </div>
+  <div
+    className="
+      flex
+      flex-col
+      md:flex-row
+      md:items-center
+      md:justify-between
+      gap-4
+    "
+  >
 
-              <div>
-                <h1 className="text-3xl font-bold">
-                  Admin Dashboard
-                </h1>
+    {/* LEFT SIDE */}
 
-                <p className="text-purple-100 mt-2">
-                  Manage Knowledge Base Articles
-                </p>
-              </div>
+    <div className="flex items-center gap-4">
 
-            </div>
-          </div>
+      <div
+        className="
+          bg-white/20
+          p-3 md:p-4
+          rounded-2xl
+          text-2xl md:text-3xl
+        "
+      >
+        <FaBook />
+      </div>
+
+      <div>
+
+        <h1 className="text-2xl md:text-3xl font-bold">
+          Admin Dashboard
+        </h1>
+
+        <p className="text-purple-100 mt-2">
+          Manage Knowledge Base Articles
+        </p>
+
+      </div>
+
+    </div>
+
+    {/* RIGHT SIDE */}
+
+    <div className="flex items-center gap-4">
+
+      <div
+        className="
+          flex items-center gap-3
+          bg-white/20
+          px-4 py-2
+          rounded-xl
+        "
+      >
+
+        <FaUserCircle className="text-2xl" />
+
+        <div>
+
+          <p className="font-semibold">
+            {user?.email}
+          </p>
+
+          <p className="text-sm text-purple-100">
+            Admin
+          </p>
+
+        </div>
+
+      </div>
+
+      <button
+        onClick={logout}
+        className="
+          bg-white/20
+          hover:bg-white/30
+          p-3
+          rounded-xl
+          transition
+          text-xl
+        "
+      >
+
+        <FaSignOutAlt />
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
 
           {/* FORM */}
 
