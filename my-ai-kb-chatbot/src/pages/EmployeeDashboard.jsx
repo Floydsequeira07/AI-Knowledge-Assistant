@@ -171,7 +171,7 @@ words.forEach((word, index) => {
     
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-100 to-purple-200 p-8">
+    <div className="min-h-screen bg-gradient-to-br from-purple-100 to-purple-200 p-4 md:p-8">
 
       <div className="max-w-5xl mx-auto">
 
@@ -179,17 +179,29 @@ words.forEach((word, index) => {
 
         <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
 
-          <div className="bg-purple-600 text-white p-8 flex items-center justify-between">
+          <div
+  className="
+    bg-purple-600
+    text-white
+    p-4 md:p-8
+    flex
+    flex-col
+    md:flex-row
+    md:items-center
+    md:justify-between
+    gap-4
+  "
+>
 
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3 md:gap-4">
 
-              <div className="bg-white/20 p-4 rounded-2xl text-3xl">
+              <div className="bg-white/20 p-3 md:p-4 rounded-2xl text-2xl md:text-3xl">
                 <FaRobot />
               </div>
 
               <div>
 
-                <h1 className="text-3xl font-bold">
+                <h1 className="text-2xl md:text-3xl font-bold">
                   Employee Dashboard
                 </h1>
 
@@ -239,7 +251,7 @@ words.forEach((word, index) => {
 </div>
           {/* CHAT AREA */}
 
-          <div className="p-8 h-[500px] overflow-y-auto bg-purple-50">
+          <div className="p-4 md:p-8 h-[450px] md:h-[500px] overflow-y-auto bg-purple-50">
 
             <div className="space-y-5">
 
@@ -259,7 +271,7 @@ words.forEach((word, index) => {
 
                   <div
                     className={`
-                      max-w-[70%]
+                      max-w-[90%] md:max-w-[70%]
                       px-5
                       py-3
                       rounded-2xl
@@ -288,9 +300,9 @@ words.forEach((word, index) => {
 
           {/* INPUT AREA */}
 
-          <div className="p-6 border-t border-gray-200 bg-white">
+          <div className="p-4 md:p-6 border-t border-gray-200 bg-white">
 
-            <div className="flex gap-4">
+            <div className="flex gap-3 md:gap-4">
 
               <input
                 type="text"

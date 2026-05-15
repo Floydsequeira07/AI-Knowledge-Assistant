@@ -159,6 +159,22 @@ const fetchSessions = async (
   employee
 ) => {
 
+  if (
+    selectedEmployee === employee
+  ) {
+
+    setSelectedEmployee(
+      null
+    );
+
+    setSessions([]);
+
+    setHistory([]);
+
+    return;
+
+  }
+
   try {
 
     const res = await axios.get(
@@ -166,11 +182,12 @@ const fetchSessions = async (
     );
 
     setSessions(res.data);
-    setSelectedEmployee(
-  employee
-);
 
-setHistory([]);
+    setSelectedEmployee(
+      employee
+    );
+
+    setHistory([]);
 
   } catch (err) {
 
