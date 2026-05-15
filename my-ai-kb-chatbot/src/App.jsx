@@ -5,7 +5,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Login from "./pages/Login";
 import AdminDashboard from "./pages/AdminDashboard";
 import EmployeeDashboard from "./pages/EmployeeDashboard";
-import ChatPage from "./pages/ChatPage";
+
 
 
 function App() {
@@ -36,14 +36,7 @@ function App() {
       />
       
 
-      <Route
-        path="/chat/:id"
-        element={
-          <ProtectedRoute allowedRole="employee">
-            <ChatPage />
-          </ProtectedRoute>
-        }
-      />
+      
 
     </Routes>
   );

@@ -47,7 +47,7 @@ const validate = () => {
   const handleLogin = async () => {
      if (!validate()) return;
     try {
-      const res = await axios.post("http://localhost:5000/login", {
+      const res = await axios.post("https://t2950f3p-5000.inc1.devtunnels.ms/login", {
         email,
         password,
         role,
@@ -72,14 +72,27 @@ setTimeout(() => {
   };
 
   return (
-<div className="min-h-screen bg-gradient-to-br from-purple-100 to-purple-200 flex items-center justify-center px-6">
+<div className="min-h-screen bg-gradient-to-br from-purple-100 to-purple-200 flex items-center justify-center px-4 md:px-6 py-6">
         <Toaster position="top-right" />
       
-      <div className="flex w-[760px] bg-white rounded-3xl overflow-hidden shadow-2xl">
+      <div
+  className="
+    flex
+    flex-col
+    md:flex-row
+    w-full
+    max-w-[760px]
+    bg-white
+    rounded-3xl
+    overflow-hidden
+    shadow-2xl
+  "
+>
 
   {/* LEFT SIDE */}
 
-  <div className="w-[320px] bg-purple-600 text-white p-10 flex flex-col justify-center relative overflow-hidden">
+  <div
+  className=" w-full md:w-[320px] bg-purple-600 text-white p-10 flex flex-col justify-center relative overflow-hidden">
 
     <div className="absolute top-10 left-10 w-40 h-40 bg-purple-400 rounded-full opacity-30 blur-3xl"></div>
 
@@ -123,7 +136,14 @@ setTimeout(() => {
 
   {/* RIGHT SIDE */}
 
-     <div className="flex-1 p-10 pt-16">
+     <div
+  className="
+    flex-1
+    p-6
+    md:p-10
+    md:pt-16
+  "
+>
         
         <h1 className="text-3xl font-bold text-center mb-6 text-purple-600">
           Welcome Back

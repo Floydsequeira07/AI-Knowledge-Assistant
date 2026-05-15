@@ -47,7 +47,7 @@ const createSession = async () => {
   try {
 
     const res = await axios.post(
-      "http://localhost:5000/session",
+      "https://t2950f3p-5000.inc1.devtunnels.ms/session",
       {
         employee_id: user.id,
       }
@@ -92,7 +92,7 @@ socket.emit("new_message", {
   try {
 
      const res = await axios.post(
-  "http://localhost:5000/chat",
+  "https://t2950f3p-5000.inc1.devtunnels.ms/chat",
   {
     message,
     session_id:
