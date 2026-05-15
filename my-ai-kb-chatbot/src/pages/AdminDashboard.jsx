@@ -308,7 +308,7 @@ setChats(latestChats);
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-100 to-purple-200 p-8">
+    <div className="min-h-screen bg-gradient-to-br from-purple-100 to-purple-200 p-4 md:p-8">
       <Toaster position="top-right" />
 
       <div className="max-w-6xl mx-auto">
@@ -318,7 +318,7 @@ setChats(latestChats);
         <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
 
           <div className="bg-purple-600 p-8 text-white">
-            <div className="flex items-center gap-4">
+            <div className="flex flex-col md:flex-row md:items-center gap-4">
 
               <div className="bg-white/20 p-4 rounded-2xl text-3xl">
                 <FaBook />
@@ -339,7 +339,7 @@ setChats(latestChats);
 
           {/* FORM */}
 
-          <div className="p-8 border-b border-gray-200">
+          <div className="p-4 md:p-8 border-b border-gray-200">
 
             <div className="grid md:grid-cols-2 gap-6">
 
@@ -446,7 +446,7 @@ setChats(latestChats);
 
           {/* TABLE */}
 
-          <div className="p-8 overflow-x-auto">
+          <div className="p-4 md:p-8 overflow-x-auto">
             {/* SEARCH BAR */}
 
 <div className="mb-6">
@@ -572,7 +572,7 @@ setChats(latestChats);
 
           {/* LIVE MONITORING */}
 
-<div className="border-t border-gray-200 p-8 bg-purple-50">
+<div className="border-t border-gray-200 p-4 md:p-8 bg-purple-50">
 
   <div className="mb-6">
 
@@ -620,8 +620,11 @@ setChats(latestChats);
 
     <div
       className="
-        flex items-center
-        justify-between
+        flex flex-col
+        md:flex-row
+        md:items-center
+        md:justify-between
+        gap-4
         mb-4
       "
     >
@@ -692,7 +695,7 @@ setChats(latestChats);
 
       </div>
 
-      <div className="flex gap-3">
+       <div className="flex flex-wrap gap-3">
 <button
   onClick={() =>
     fetchSessions(
@@ -808,6 +811,7 @@ setChats(latestChats);
         transition
         w-full
         text-left
+        break-words
       "
     >
 
