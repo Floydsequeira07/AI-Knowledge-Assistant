@@ -7,6 +7,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 import EmployeeDashboard from "./pages/EmployeeDashboard";
 import ChatPage from "./pages/ChatPage";
 
+
 function App() {
   return (
     <Routes>
@@ -33,6 +34,7 @@ function App() {
           </ProtectedRoute>
         }
       />
+      
 
       <Route
         path="/chat/:id"
