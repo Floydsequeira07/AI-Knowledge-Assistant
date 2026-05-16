@@ -42,6 +42,44 @@ useEffect(() => {
 
 }, []);
 
+
+useEffect(() => {
+
+  const welcomeMessage =
+    "Hello! How can I help you today?";
+
+  let currentText = "";
+
+  const words =
+    welcomeMessage.split(" ");
+
+  setMessages([
+    {
+      sender: "bot",
+      text: "",
+    },
+  ]);
+
+  words.forEach((word, index) => {
+
+    setTimeout(() => {
+
+      currentText +=
+        word + " ";
+
+      setMessages([
+        {
+          sender: "bot",
+          text: currentText,
+        },
+      ]);
+
+    }, index * 120);
+
+  });
+
+}, []);
+
 const createSession = async () => {
 
   try {
@@ -62,13 +100,9 @@ const createSession = async () => {
   }
 
 };
-  const [messages, setMessages] = useState([
-    {
-      sender: "bot",
-      text:
-        "Hello! How can I help you today?",
-    },
-  ]);
+  const [messages, setMessages] =
+  useState([]);
+
 
  const sendMessage = async () => {
 
@@ -163,7 +197,8 @@ words.forEach((word, index) => {
 
   setMessage("");
 
-};;
+};
+
 
     
     

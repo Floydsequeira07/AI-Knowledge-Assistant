@@ -220,13 +220,14 @@ app.get(
   chat_sessions.id,
   chat_sessions.created_at,
   (
-    SELECT content
-    FROM messages
-    WHERE messages.session_id =
-          chat_sessions.id
-    ORDER BY created_at ASC
-    LIMIT 1
-  ) AS first_message
+  SELECT content
+  FROM messages
+  WHERE messages.session_id =
+        chat_sessions.id
+  AND sender = 'employee'
+  ORDER BY created_at ASC
+  LIMIT 1
+) AS first_message
 FROM chat_sessions
 JOIN users
 ON chat_sessions.employee_id =

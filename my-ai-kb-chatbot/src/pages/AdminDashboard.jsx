@@ -68,10 +68,18 @@ const logout = () => {
         data.employee
     );
 
-  return [
-    ...filtered,
-    data,
-  ];
+const updatedChats = [
+  ...filtered,
+  data,
+];
+
+updatedChats.sort((a, b) =>
+  a.employee.localeCompare(
+    b.employee
+  )
+);
+
+return updatedChats;
 
 });
 
@@ -315,10 +323,19 @@ setChats(latestChats);
   };
 
   const editArticle = (article) => {
-    setEditId(article.id);
-    setTitle(article.title);
-    setContent(article.content);
-  };
+
+  setEditId(article.id);
+
+  setTitle(article.title);
+
+  setContent(article.content);
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+
+};
 
   const updateArticle = async () => {
     try {
