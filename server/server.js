@@ -219,6 +219,7 @@ app.get(
       SELECT
   chat_sessions.id,
   chat_sessions.created_at,
+chat_sessions.stopped,
   (
   SELECT content
   FROM messages
@@ -417,8 +418,34 @@ ${knowledgeBase}
         ],
       });
  
-      const botReply = response.choices[0].message.content;
-      res.json({ reply: botReply });
+      const botReply =
+  response.choices[0]
+  .message.content;
+
+db.query(
+  `
+  INSERT INTO messages
+  (session_id, sender, content)
+  VALUES (?, ?, ?)
+  `,
+  [
+    session_id,
+    "bot",
+    botReply,
+  ],
+  (err) => {
+
+    if (err) {
+      console.log(err);
+    }
+
+  }
+);
+
+res.json({
+  reply: botReply,
+});
+      
  
     } catch (error) {
       console.log("GROQ ERROR:", error.message);

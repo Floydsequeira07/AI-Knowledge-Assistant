@@ -1,4 +1,8 @@
-import { useEffect, useState } from "react";
+import {
+  useEffect,
+  useState,
+  useRef,
+} from "react";
 import {
   FaRobot,
   FaPaperPlane,
@@ -28,6 +32,13 @@ function EmployeeDashboard() {
   const [sessionId, setSessionId] =
   useState(null);
   const [message, setMessage] = useState("");
+  const [sessions, setSessions] =
+  useState([]);
+  const [newChatMode,
+setNewChatMode] =
+useState(false);
+  const messagesEndRef =
+  useRef(null);
   
  useEffect(() => {
 
@@ -38,47 +49,22 @@ function EmployeeDashboard() {
 }, []);
 useEffect(() => {
 
-  createSession();
+  fetchSessions();
+
+  const interval =
+    setInterval(() => {
+
+      fetchSessions();
+
+    }, 1000);
+
+  return () =>
+    clearInterval(interval);
 
 }, []);
 
 
-useEffect(() => {
 
-  const welcomeMessage =
-    "Hello! How can I help you today?";
-
-  let currentText = "";
-
-  const words =
-    welcomeMessage.split(" ");
-
-  setMessages([
-    {
-      sender: "bot",
-      text: "",
-    },
-  ]);
-
-  words.forEach((word, index) => {
-
-    setTimeout(() => {
-
-      currentText +=
-        word + " ";
-
-      setMessages([
-        {
-          sender: "bot",
-          text: currentText,
-        },
-      ]);
-
-    }, index * 120);
-
-  });
-
-}, []);
 
 const createSession = async () => {
 
@@ -92,6 +78,8 @@ const createSession = async () => {
     );
 
     setSessionId(res.data.sessionId);
+    
+    await fetchSessions();
 
   } catch (err) {
 
@@ -100,13 +88,126 @@ const createSession = async () => {
   }
 
 };
+
+const fetchSessions =
+  async () => {
+
+    try {
+
+      const res =
+        await axios.get(
+          `https://t2950f3p-5000.inc1.devtunnels.ms/employee-sessions/${user.email}`
+        );
+
+      setSessions(res.data);
+      
+
+
+
+    } catch (err) {
+
+      console.log(err);
+
+    }
+
+  };
+
+  const loadSession =
+  async (id) => {
+
+    try {
+
+      const res =
+        await axios.get(
+          `https://t2950f3p-5000.inc1.devtunnels.ms/messages/${id}`
+        );
+
+      setSessionId(id);
+
+      const formatted =
+        res.data.map(
+          (msg) => ({
+            sender:
+              msg.sender ===
+              "employee"
+                ? "user"
+                : "bot",
+
+            text:
+              msg.content,
+          })
+        );
+
+      setMessages(
+        formatted
+      );
+
+    } catch (err) {
+
+      console.log(err);
+
+    }
+
+  };
   const [messages, setMessages] =
   useState([]);
+  useEffect(() => {
+
+  if (
+  sessions.length > 0 &&
+  !sessionId &&
+  !newChatMode
+) {
+
+    loadSession(
+      sessions[0].id
+    );
+
+  }
+
+}, [sessions]);
 
 
  const sendMessage = async () => {
 
   if (!message.trim()) return;
+  let activeSessionId =
+  sessionId;
+
+if (!activeSessionId) {
+
+  const res =
+    await axios.post(
+      "https://t2950f3p-5000.inc1.devtunnels.ms/session",
+      {
+        employee_id:
+          user.id,
+      }
+    );
+
+  activeSessionId =
+    res.data.sessionId;
+
+  setSessionId(
+    activeSessionId
+  );
+  setNewChatMode(false);
+
+  setSessions((prev) => [
+
+    {
+      id: activeSessionId,
+      first_message:
+        message,
+      stopped: false,
+    },
+
+    ...prev,
+
+  ]);
+
+}
+
 
   const userMessage = {
     sender: "user",
@@ -117,8 +218,27 @@ const createSession = async () => {
     ...prev,
     userMessage,
   ]);
+  setSessions((prev) =>
+
+  prev.map((session) =>
+
+    session.id === activeSessionId
+
+      ? {
+          ...session,
+          first_message:
+            session.first_message ||
+            message,
+        }
+
+      : session
+
+  )
+
+);
 socket.emit("new_message", {
-  session_id: sessionId,
+  session_id:
+  activeSessionId,
   sender: "employee",
   employee: user.email,
   text: message,
@@ -130,7 +250,7 @@ socket.emit("new_message", {
   {
     message,
     session_id:
-      sessionId,
+  activeSessionId,
   }
 );
 
@@ -196,23 +316,182 @@ words.forEach((word, index) => {
   }
 
   setMessage("");
+  fetchSessions();
 
 };
 
 
-    
+    useEffect(() => {
+
+  messagesEndRef.current
+    ?.scrollIntoView({
+      behavior: "smooth",
+    });
+
+}, [messages]);
     
 
     
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-100 to-purple-200 p-4 md:p-8">
+      
+      <div
+  className="
+    max-w-7xl
+    mx-auto
+    flex
+    flex-col
+    md:flex-row
+    gap-6
+  "
+>  
+<div
+  className="
+    w-full
+    md:w-[300px]
+    bg-white
+    rounded-3xl
+    shadow-2xl
+    p-5
+    h-fit
+  "
+>
+  <button
+  onClick={() => {
 
-      <div className="max-w-5xl mx-auto">
+  setSessionId(null);
+
+  setMessages([]);
+
+  setNewChatMode(true);
+
+}}
+  className="
+    w-full
+    mb-4
+    bg-purple-600
+    hover:bg-purple-700
+    text-white
+    py-2
+    rounded-xl
+    transition
+    text-sm
+    font-medium
+  "
+>
+
+  + New Chat
+
+</button>
+
+  <h2
+  className="
+    text-lg
+    font-bold
+    text-gray-700
+    mb-4
+  "
+>
+
+  Recent Chats
+
+</h2>
+
+
+  <div className="space-y-3">
+
+    {sessions.map(
+      (session) => (
+
+        <button
+          key={session.id}
+          onClick={() =>
+            loadSession(
+              session.id
+            )
+          }
+          className={`
+  w-full
+  text-left
+  p-3
+  rounded-xl
+  border
+  transition
+
+  ${
+    sessionId === session.id
+      ? "bg-purple-100 border-purple-400"
+      : "border-purple-100 hover:bg-purple-50"
+  }
+`}
+        >
+
+          <p
+            className="
+              text-sm
+              font-medium
+              text-gray-700
+            "
+          >
+
+            {
+              session.first_message
+  ? session.first_message.slice(
+      0,
+      35
+    )
+  : "New Chat"
+            }
+
+          </p>
+         
+
+<p
+  className={`
+    text-xs
+    mt-2
+    font-medium
+
+    ${
+      session.stopped
+        ? "text-red-500"
+        : "text-green-500"
+    }
+  `}
+>
+
+  {
+    session.stopped
+      ? "Stopped"
+      : "Active"
+  }
+
+</p>
+
+        </button>
+
+      )
+    )}
+
+  </div>
+
+</div>
 
         {/* HEADER */}
 
-        <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
+        <div
+  className="
+    bg-white
+    rounded-3xl
+    shadow-2xl
+    overflow-hidden
+    flex
+    flex-col
+    h-[90vh]
+    flex-1
+  "
+>
 
           <div
   className="
@@ -286,12 +565,63 @@ words.forEach((word, index) => {
 </div>
           {/* CHAT AREA */}
 
-          <div className="p-4 md:p-8 h-[450px] md:h-[500px] overflow-y-auto bg-purple-50">
+          <div
+  className="
+    flex-1
+    p-4
+    md:p-8
+    overflow-y-auto
+    bg-purple-50
+  "
+>
 
             <div className="space-y-5">
+              {messages.length === 0 && (
+
+  <div className="flex justify-start">
+
+    <div
+      className="
+        max-w-[90%]
+        md:max-w-[70%]
+        px-5
+        py-3
+        rounded-2xl
+        shadow-md
+        text-sm
+        leading-6
+        bg-white
+        text-gray-700
+        rounded-bl-sm
+      "
+    >
+
+      <p
+        className="
+          text-xs
+          font-semibold
+          mb-1
+          opacity-70
+        "
+      >
+
+        Assistant
+
+      </p>
+
+      <p>
+        How can I assist you today?
+      </p>
+
+    </div>
+
+  </div>
+
+)}
 
               {messages.map((msg, index) => (
 
+              
                 <div
                   key={index}
                   className={`
@@ -321,13 +651,38 @@ words.forEach((word, index) => {
                     `}
                   >
 
-                    {msg.text}
+                    <div>
+
+  <p
+    className="
+      text-xs
+      font-semibold
+      mb-1
+      opacity-70
+    "
+  >
+
+    {
+      msg.sender === "user"
+        ? "Employee"
+        : "Assistant"
+    }
+
+  </p>
+
+  <p>
+    {msg.text}
+  </p>
+
+</div>
 
                   </div>
 
                 </div>
 
               ))}
+            
+              
 
             </div>
 
