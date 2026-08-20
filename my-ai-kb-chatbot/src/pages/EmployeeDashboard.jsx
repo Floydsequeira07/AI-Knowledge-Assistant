@@ -71,7 +71,7 @@ const createSession = async () => {
   try {
 
     const res = await axios.post(
-      "https://t2950f3p-5000.inc1.devtunnels.ms/session",
+      "https://lvrc6jlf-5000.inc1.devtunnels.ms/session",
       {
         employee_id: user.id,
       }
@@ -96,7 +96,7 @@ const fetchSessions =
 
       const res =
         await axios.get(
-          `https://t2950f3p-5000.inc1.devtunnels.ms/employee-sessions/${user.email}`
+          `https://lvrc6jlf-5000.inc1.devtunnels.ms/employee-sessions/${user.email}`
         );
 
       setSessions(res.data);
@@ -119,7 +119,7 @@ const fetchSessions =
 
       const res =
         await axios.get(
-          `https://t2950f3p-5000.inc1.devtunnels.ms/messages/${id}`
+          `https://lvrc6jlf-5000.inc1.devtunnels.ms/messages/${id}`
         );
 
       setSessionId(id);
@@ -178,7 +178,7 @@ if (!activeSessionId) {
 
   const res =
     await axios.post(
-      "https://t2950f3p-5000.inc1.devtunnels.ms/session",
+      "https://lvrc6jlf-5000.inc1.devtunnels.ms/session",
       {
         employee_id:
           user.id,
@@ -246,7 +246,7 @@ socket.emit("new_message", {
   try {
 
      const res = await axios.post(
-  "https://t2950f3p-5000.inc1.devtunnels.ms/chat",
+  "https://lvrc6jlf-5000.inc1.devtunnels.ms/chat",
   {
     message,
     session_id:
@@ -596,19 +596,7 @@ words.forEach((word, index) => {
       "
     >
 
-      <p
-        className="
-          text-xs
-          font-semibold
-          mb-1
-          opacity-70
-        "
-      >
-
-        Assistant
-
-      </p>
-
+     
       <p>
         How can I assist you today?
       </p>
@@ -651,30 +639,13 @@ words.forEach((word, index) => {
                     `}
                   >
 
-                    <div>
+                  
 
-  <p
-    className="
-      text-xs
-      font-semibold
-      mb-1
-      opacity-70
-    "
-  >
-
-    {
-      msg.sender === "user"
-        ? "Employee"
-        : "Assistant"
-    }
-
-  </p>
 
   <p>
     {msg.text}
   </p>
 
-</div>
 
                   </div>
 
@@ -687,66 +658,95 @@ words.forEach((word, index) => {
             </div>
 
           </div>
-
+         
           {/* INPUT AREA */}
 
-          <div className="p-4 md:p-6 border-t border-gray-200 bg-white">
+         {
+  sessions.find(
+    (s) => s.id === sessionId
+  )?.stopped === 1 ? (
 
-            <div className="flex gap-3 md:gap-4">
+    <div
+      className="
+        border-t
+        border-gray-200
+        bg-gray-100
+        text-center
+        text-gray-600
+        py-5
+        px-4
+        text-sm
+        font-medium
+      "
+    >
 
-              <input
-                type="text"
-                placeholder="Ask something..."
-                value={message}
-                onChange={(e) =>
-                  setMessage(e.target.value)
-                }
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    sendMessage();
-                  }
-                }}
-                className="
-                  flex-1
-                  border border-gray-300
-                  p-4
-                  rounded-xl
-                  outline-none
-                  focus:border-purple-500
-                  focus:ring-2
-                  focus:ring-purple-200
-                  transition
-                "
-              />
+      This conversation has been stopped by admin.
+      Please start a new conversation for further queries.
 
-              <button
-                onClick={sendMessage}
-                className="
-                  bg-purple-600
-                  hover:bg-purple-700
-                  text-white
-                  px-6
-                  rounded-xl
-                  transition
-                  shadow-md
-                  flex items-center justify-center
-                  text-xl
-                "
-              >
+    </div>
 
-                <FaPaperPlane />
+  ) : (
 
-              </button>
+    <div className="p-4 md:p-6 border-t border-gray-200 bg-white">
 
-            </div>
+      <div className="flex gap-3 md:gap-4">
 
-          </div>
+        <input
+          type="text"
+          placeholder="Ask something..."
+          value={message}
+          onChange={(e) =>
+            setMessage(e.target.value)
+          }
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              sendMessage();
+            }
+          }}
+          className="
+            flex-1
+            border border-gray-300
+            p-4
+            rounded-xl
+            outline-none
+            focus:border-purple-500
+            focus:ring-2
+            focus:ring-purple-200
+            transition
+          "
+        />
 
-        </div>
+        <button
+          onClick={sendMessage}
+          className="
+            bg-purple-600
+            hover:bg-purple-700
+            text-white
+            px-6
+            rounded-xl
+            transition
+            shadow-md
+            flex items-center justify-center
+            text-xl
+          "
+        >
+
+          <FaPaperPlane />
+
+        </button>
+        
+      </div>
+
+    </div>
+
+  )
+}
+</div>
 
       </div>
 
     </div>
   );
 }
+
 export default EmployeeDashboard;

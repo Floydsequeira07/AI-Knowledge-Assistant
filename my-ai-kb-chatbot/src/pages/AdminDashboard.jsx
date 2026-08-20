@@ -112,7 +112,7 @@ useEffect(() => {
   const fetchArticles = async () => {
     try {
       const res = await axios.get(
-        "https://t2950f3p-5000.inc1.devtunnels.ms/kb"
+        "https://lvrc6jlf-5000.inc1.devtunnels.ms/kb"
       );
 
       setArticles(res.data);
@@ -129,7 +129,7 @@ useEffect(() => {
 
     try {
       await axios.post(
-        "https://t2950f3p-5000.inc1.devtunnels.ms/kb",
+        "https://lvrc6jlf-5000.inc1.devtunnels.ms/kb",
         {
           title,
           content,
@@ -151,7 +151,7 @@ useEffect(() => {
   try {
 
     const res = await axios.get(
-      "https://t2950f3p-5000.inc1.devtunnels.ms/employees"
+      "https://lvrc6jlf-5000.inc1.devtunnels.ms/employees"
     );
 
     setEmployees(res.data);
@@ -186,7 +186,7 @@ const fetchSessions = async (
   try {
 
     const res = await axios.get(
-      `https://t2950f3p-5000.inc1.devtunnels.ms/employee-sessions/${employee}`
+      `https://lvrc6jlf-5000.inc1.devtunnels.ms/employee-sessions/${employee}`
     );
 
     setSessions(res.data);
@@ -222,7 +222,7 @@ const fetchHistory = async (
   try {
 
     const res = await axios.get(
-      `https://t2950f3p-5000.inc1.devtunnels.ms/messages/${sessionId}`
+      `https://lvrc6jlf-5000.inc1.devtunnels.ms/messages/${sessionId}`
     );
 
     setHistory(res.data);
@@ -243,7 +243,7 @@ const stopSession = async (
   try {
 
     await axios.put(
-      `https://t2950f3p-5000.inc1.devtunnels.ms/stop-session/${sessionId}`
+      `https://lvrc6jlf-5000.inc1.devtunnels.ms/stop-session/${sessionId}`
     );
 
     toast.success(
@@ -264,7 +264,7 @@ const fetchChats = async () => {
   try {
 
     const res = await axios.get(
-      "https://t2950f3p-5000.inc1.devtunnels.ms/all-messages"
+      "https://lvrc6jlf-5000.inc1.devtunnels.ms/all-messages"
     );
 
     const latestChats = [];
@@ -311,7 +311,7 @@ setChats(latestChats);
   const deleteArticle = async (id) => {
     try {
       await axios.delete(
-        `https://t2950f3p-5000.inc1.devtunnels.ms/kb/${id}`
+        `https://lvrc6jlf-5000.inc1.devtunnels.ms/kb/${id}`
       );
 
       toast.success("Article Deleted");
@@ -340,7 +340,7 @@ setChats(latestChats);
   const updateArticle = async () => {
     try {
       await axios.put(
-        `https://t2950f3p-5000.inc1.devtunnels.ms/kb/${editId}`,
+        `https://lvrc6jlf-5000.inc1.devtunnels.ms/kb/${editId}`,
         {
           title,
           content,
