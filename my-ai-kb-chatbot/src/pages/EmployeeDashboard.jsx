@@ -71,7 +71,7 @@ const createSession = async () => {
   try {
 
     const res = await axios.post(
-      "https://lvrc6jlf-5000.inc1.devtunnels.ms/session",
+      "https://4mp08bsd-5000.inc1.devtunnels.ms/session",
       {
         employee_id: user.id,
       }
@@ -119,7 +119,7 @@ const fetchSessions =
 
       const res =
         await axios.get(
-          `https://lvrc6jlf-5000.inc1.devtunnels.ms/messages/${id}`
+          `https://4mp08bsd-5000.inc1.devtunnels.ms/messages/${id}`
         );
 
       setSessionId(id);
@@ -178,7 +178,7 @@ if (!activeSessionId) {
 
   const res =
     await axios.post(
-      "https://lvrc6jlf-5000.inc1.devtunnels.ms/session",
+      "https://4mp08bsd-5000.inc1.devtunnels.ms/session",
       {
         employee_id:
           user.id,
@@ -246,7 +246,7 @@ socket.emit("new_message", {
   try {
 
      const res = await axios.post(
-  "https://lvrc6jlf-5000.inc1.devtunnels.ms/chat",
+  "https://4mp08bsd-5000.inc1.devtunnels.ms/chat",
   {
     message,
     session_id:
