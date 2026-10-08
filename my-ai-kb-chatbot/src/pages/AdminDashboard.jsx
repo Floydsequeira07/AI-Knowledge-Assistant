@@ -112,7 +112,7 @@ useEffect(() => {
   const fetchArticles = async () => {
     try {
       const res = await axios.get(
-        "https://4mp08bsd-5000.inc1.devtunnels.ms/kb"
+        "https://ai-knowledge-assistant-2pxy.onrender.com/kb"
       );
 
       setArticles(res.data);
@@ -129,7 +129,7 @@ useEffect(() => {
 
     try {
       await axios.post(
-        "https://4mp08bsd-5000.inc1.devtunnels.ms/kb",
+        "https://ai-knowledge-assistant-2pxy.onrender.com/kb",
         {
           title,
           content,
@@ -151,7 +151,7 @@ useEffect(() => {
   try {
 
     const res = await axios.get(
-      "https://4mp08bsd-5000.inc1.devtunnels.ms/employees"
+      "https://ai-knowledge-assistant-2pxy.onrender.com/employees"
     );
 
     setEmployees(res.data);
@@ -186,7 +186,7 @@ const fetchSessions = async (
   try {
 
     const res = await axios.get(
-      `https://4mp08bsd-5000.inc1.devtunnels.ms/employee-sessions/${employee}`
+      `https://ai-knowledge-assistant-2pxy.onrender.com/employee-sessions/${employee}`
     );
 
     setSessions(res.data);
@@ -222,7 +222,7 @@ const fetchHistory = async (
   try {
 
     const res = await axios.get(
-      `https://4mp08bsd-5000.inc1.devtunnels.ms/messages/${sessionId}`
+      `https://ai-knowledge-assistant-2pxy.onrender.com/messages/${sessionId}`
     );
 
     setHistory(res.data);
@@ -243,7 +243,7 @@ const stopSession = async (
   try {
 
     await axios.put(
-      `https://4mp08bsd-5000.inc1.devtunnels.ms/stop-session/${sessionId}`
+      `https://ai-knowledge-assistant-2pxy.onrender.com/stop-session/${sessionId}`
     );
 
     toast.success(
@@ -264,7 +264,7 @@ const fetchChats = async () => {
   try {
 
     const res = await axios.get(
-      "https://4mp08bsd-5000.inc1.devtunnels.ms/all-messages"
+      "https://ai-knowledge-assistant-2pxy.onrender.com/all-messages"
     );
 
     const latestChats = [];
@@ -311,7 +311,7 @@ setChats(latestChats);
   const deleteArticle = async (id) => {
     try {
       await axios.delete(
-        `https://4mp08bsd-5000.inc1.devtunnels.ms/kb/${id}`
+        `https://ai-knowledge-assistant-2pxy.onrender.com/kb/${id}`
       );
 
       toast.success("Article Deleted");
@@ -340,7 +340,7 @@ setChats(latestChats);
   const updateArticle = async () => {
     try {
       await axios.put(
-        `https://4mp08bsd-5000.inc1.devtunnels.ms/kb/${editId}`,
+        `https://ai-knowledge-assistant-2pxy.onrender.com/kb/${editId}`,
         {
           title,
           content,

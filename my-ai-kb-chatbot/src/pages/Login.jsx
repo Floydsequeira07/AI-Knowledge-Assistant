@@ -47,7 +47,7 @@ const validate = () => {
   const handleLogin = async () => {
      if (!validate()) return;
     try {
-      const res = await axios.post("https://4mp08bsd-5000.inc1.devtunnels.ms/login", {
+      const res = await axios.post("https://ai-knowledge-assistant-2pxy.onrender.com/login", {
         email,
         password,
         role,

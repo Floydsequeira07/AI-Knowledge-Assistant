@@ -71,7 +71,7 @@ const createSession = async () => {
   try {
 
     const res = await axios.post(
-      "https://4mp08bsd-5000.inc1.devtunnels.ms/session",
+      "https://ai-knowledge-assistant-2pxy.onrender.com/session",
       {
         employee_id: user.id,
       }
@@ -96,7 +96,7 @@ const fetchSessions =
 
       const res =
         await axios.get(
-          `https://lvrc6jlf-5000.inc1.devtunnels.ms/employee-sessions/${user.email}`
+          `https://ai-knowledge-assistant-2pxy.onrender.com/employee-sessions/${user.email}`
         );
 
       setSessions(res.data);
@@ -119,7 +119,7 @@ const fetchSessions =
 
       const res =
         await axios.get(
-          `https://4mp08bsd-5000.inc1.devtunnels.ms/messages/${id}`
+          `https://ai-knowledge-assistant-2pxy.onrender.com/messages/${id}`
         );
 
       setSessionId(id);
@@ -178,7 +178,7 @@ if (!activeSessionId) {
 
   const res =
     await axios.post(
-      "https://4mp08bsd-5000.inc1.devtunnels.ms/session",
+      "https://ai-knowledge-assistant-2pxy.onrender.com/session",
       {
         employee_id:
           user.id,
@@ -246,7 +246,7 @@ socket.emit("new_message", {
   try {
 
      const res = await axios.post(
-  "https://4mp08bsd-5000.inc1.devtunnels.ms/chat",
+  "https://ai-knowledge-assistant-2pxy.onrender.com/chat",
   {
     message,
     session_id:
