@@ -5,19 +5,36 @@ const { Server } = require("socket.io");
 const db = require("./db");
 const Groq = require("groq-sdk");
 require("dotenv").config();
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+
+const groq = new Groq({
+  apiKey: process.env.GROQ_API_KEY,
+});
 
 const app = express();
 const server = http.createServer(app);
+
 let onlineEmployees = [];
+
+const allowedOrigin =
+  "https://ai-knowledge-assistant1.vercel.app";
+
+app.use(
+  cors({
+    origin: allowedOrigin,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
+
+app.use(express.json());
 
 const io = new Server(server, {
   cors: {
-    origin: "*",
+    origin: allowedOrigin,
+    methods: ["GET", "POST"],
+    credentials: true,
   },
 });
-app.use(cors());
-app.use(express.json());
 
 io.on("connection", (socket) => {
   console.log("User connected");
