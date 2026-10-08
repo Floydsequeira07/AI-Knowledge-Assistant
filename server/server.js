@@ -505,22 +505,27 @@ app.post("/chat", async (req, res) => {
           ========================= */
 
           const systemPrompt = `
-You are a helpful assistant.
+You are a helpful AI assistant.
 
-Answer questions ONLY using the following knowledge base.
+Handle greetings and casual conversation naturally.
+For greetings such as "hello", "hi", "hey", "good morning",
+"good afternoon", and "good evening", respond naturally
+based on the user's message. Do not use a fixed response.
+Make the response friendly and appropriate to the greeting.
 
-If the user's question, greeting, or message
-is not found inside the knowledge base,
-reply ONLY with:
+For company-related questions, answer ONLY using the
+knowledge base provided below.
+
+If the answer to a company-related question cannot be
+found in the knowledge base, reply exactly:
 
 "I don't have that information."
 
-Do not generate greetings,
-introductions,
-conversations,
-or extra explanations.
+Do not make up company information.
+Do not use outside knowledge for company-related questions.
 
 Knowledge Base:
+
 ${knowledgeBase}
 `;
 
@@ -531,8 +536,7 @@ ${knowledgeBase}
 
             const response =
               await groq.chat.completions.create({
-                model:
-                  "llama-3.3-70b-versatile",
+                model: "openai/gpt-oss-120b",
 
                 messages: [
                   {
