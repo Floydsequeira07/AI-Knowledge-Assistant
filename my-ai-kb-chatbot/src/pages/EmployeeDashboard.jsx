@@ -71,7 +71,7 @@ const createSession = async () => {
   try {
 
     const res = await axios.post(
-      "https://ai-knowledge-assistant-2pxy.onrender.com/session",
+      `${import.meta.env.VITE_API_URL}/session`,
       {
         employee_id: user.id,
       }
@@ -96,7 +96,7 @@ const fetchSessions =
 
       const res =
         await axios.get(
-          `https://ai-knowledge-assistant-2pxy.onrender.com/employee-sessions/${user.email}`
+          `${import.meta.env.VITE_API_URL}/employee-sessions/${user.email}`
         );
 
       setSessions(res.data);
@@ -119,7 +119,7 @@ const fetchSessions =
 
       const res =
         await axios.get(
-          `https://ai-knowledge-assistant-2pxy.onrender.com/messages/${id}`
+          `${import.meta.env.VITE_API_URL}/messages/${id}`
         );
 
       setSessionId(id);
@@ -178,7 +178,7 @@ if (!activeSessionId) {
 
   const res =
     await axios.post(
-      "https://ai-knowledge-assistant-2pxy.onrender.com/session",
+       `${import.meta.env.VITE_API_URL}/session`,
       {
         employee_id:
           user.id,
@@ -246,7 +246,7 @@ socket.emit("new_message", {
   try {
 
      const res = await axios.post(
-  "https://ai-knowledge-assistant-2pxy.onrender.com/chat",
+  `${import.meta.env.VITE_API_URL}/chat`,
   {
     message,
     session_id:

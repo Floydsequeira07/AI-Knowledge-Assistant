@@ -47,11 +47,14 @@ const validate = () => {
   const handleLogin = async () => {
      if (!validate()) return;
     try {
-      const res = await axios.post("https://ai-knowledge-assistant-2pxy.onrender.com/login", {
-        email,
-        password,
-        role,
-      });
+     const res = await axios.post(
+  `${import.meta.env.VITE_API_URL}/login`,
+  {
+    email,
+    password,
+    role,
+  }
+);
 
       localStorage.setItem("user", JSON.stringify(res.data));
 

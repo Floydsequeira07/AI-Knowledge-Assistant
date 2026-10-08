@@ -112,7 +112,8 @@ useEffect(() => {
   const fetchArticles = async () => {
     try {
       const res = await axios.get(
-        "https://ai-knowledge-assistant-2pxy.onrender.com/kb"
+        `${import.meta.env.VITE_API_URL}/kb`
+
       );
 
       setArticles(res.data);
@@ -128,13 +129,13 @@ useEffect(() => {
     }
 
     try {
-      await axios.post(
-        "https://ai-knowledge-assistant-2pxy.onrender.com/kb",
-        {
-          title,
-          content,
-        }
-      );
+     await axios.post(
+  `${import.meta.env.VITE_API_URL}/kb`,
+  {
+    title,
+    content,
+  }
+);
 
       toast.success("Article Added");
 
@@ -151,9 +152,8 @@ useEffect(() => {
   try {
 
     const res = await axios.get(
-      "https://ai-knowledge-assistant-2pxy.onrender.com/employees"
-    );
-
+  `${import.meta.env.VITE_API_URL}/employees`
+);
     setEmployees(res.data);
 
   } catch (err) {
@@ -186,9 +186,8 @@ const fetchSessions = async (
   try {
 
     const res = await axios.get(
-      `https://ai-knowledge-assistant-2pxy.onrender.com/employee-sessions/${employee}`
-    );
-
+  `${import.meta.env.VITE_API_URL}/employee-sessions/${employee}`
+);
     setSessions(res.data);
 
     setSelectedEmployee(
@@ -222,8 +221,8 @@ const fetchHistory = async (
   try {
 
     const res = await axios.get(
-      `https://ai-knowledge-assistant-2pxy.onrender.com/messages/${sessionId}`
-    );
+  `${import.meta.env.VITE_API_URL}/messages/${sessionId}`
+);
 
     setHistory(res.data);
 
@@ -243,9 +242,8 @@ const stopSession = async (
   try {
 
     await axios.put(
-      `https://ai-knowledge-assistant-2pxy.onrender.com/stop-session/${sessionId}`
-    );
-
+  `${import.meta.env.VITE_API_URL}/stop-session/${sessionId}`
+);
     toast.success(
       "Chat stopped"
     );
@@ -264,8 +262,8 @@ const fetchChats = async () => {
   try {
 
     const res = await axios.get(
-      "https://ai-knowledge-assistant-2pxy.onrender.com/all-messages"
-    );
+  `${import.meta.env.VITE_API_URL}/all-messages`
+);
 
     const latestChats = [];
 
@@ -311,8 +309,8 @@ setChats(latestChats);
   const deleteArticle = async (id) => {
     try {
       await axios.delete(
-        `https://ai-knowledge-assistant-2pxy.onrender.com/kb/${id}`
-      );
+  `${import.meta.env.VITE_API_URL}/kb/${id}`
+);
 
       toast.success("Article Deleted");
 
@@ -340,12 +338,12 @@ setChats(latestChats);
   const updateArticle = async () => {
     try {
       await axios.put(
-        `https://ai-knowledge-assistant-2pxy.onrender.com/kb/${editId}`,
-        {
-          title,
-          content,
-        }
-      );
+  `${import.meta.env.VITE_API_URL}/kb/${editId}`,
+  {
+    title,
+    content,
+  }
+);
 
       toast.success("Article Updated");
 
